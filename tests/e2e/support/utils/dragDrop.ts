@@ -37,35 +37,25 @@ const getFiles = (resources: File[], files: FileBuffer[] = [], parent = ''): Fil
 export const dragDropFiles = async (page: Page, resources: File[], targetSelector: string) => {
   const files = getFiles(resources)
 
-  await page.evaluate(
-    ([files, selector]) => {
-      const target = document.querySelector(selector as string)
-      if (!target) throw new Error(`Target ${selector} not found`)
-      const input = document.createElement('input')
-      input.type = 'file'
-      input.multiple = true
-      input.style.display = 'none'
-      input.webkitdirectory = (files as FileBuffer[]).some((f) => f.relativePath.includes('/'))
-      document.body.appendChild(input)
+  // Build a real DataTransfer inside the page and return a handle to it,
+  // then have Playwright dispatch the `drop` event with that handle. A
+  // synthetic `new DragEvent(...).dispatchEvent(...)` from inside
+  // `page.evaluate` works in headed Chromium but headless silently drops
+  // the event — Playwright's `locator.dispatchEvent` goes through CDP and
+  // delivers the event the same way in both modes.
+  const dataTransfer = await page.evaluateHandle((files) => {
+    const dt = new DataTransfer()
+    ;(files as FileBuffer[]).forEach((file) => {
+      const buffer = new Uint8Array(JSON.parse(file.bufferString))
+      const fileObj = new File([new Blob([buffer])], file.name)
+      if (file.relativePath.includes('/')) {
+        Object.defineProperty(fileObj, 'webkitRelativePath', { value: file.relativePath })
+      }
+      dt.items.add(fileObj)
+    })
+    return dt
+  }, files)
 
-      const dt = new DataTransfer()
-      ;(files as FileBuffer[]).forEach((file) => {
-        const buffer = new Uint8Array(JSON.parse(file.bufferString))
-        const fileObj = new File([new Blob([buffer])], file.name)
-        if (file.relativePath.includes('/')) {
-          Object.defineProperty(fileObj, 'webkitRelativePath', { value: file.relativePath })
-        }
-        dt.items.add(fileObj)
-      })
-      input.files = dt.files
-
-      const dropEvent = new Event('drop', { bubbles: true })
-      Object.defineProperty(dropEvent, 'dataTransfer', {
-        value: { files: dt.files, types: ['Files'] }
-      })
-      target.dispatchEvent(dropEvent)
-      document.body.removeChild(input)
-    },
-    [files, targetSelector]
-  )
+  await page.locator(targetSelector).dispatchEvent('dragover', { dataTransfer })
+  await page.locator(targetSelector).dispatchEvent('drop', { dataTransfer })
 }
