@@ -1,5 +1,6 @@
 {
   "server": "https://oc.opencloud.test:10200",
+  "theme": "/branding/cloudbase/theme.json",
   "options": {
     "contextHelpersReadMore": true
   },

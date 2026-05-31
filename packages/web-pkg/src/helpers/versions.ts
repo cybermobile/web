@@ -1,7 +1,7 @@
 import { CapabilityStore } from '../composables/piniaStores'
 
 export const getWebVersion = (): string => {
-  return `OpenCloud Web UI ${process.env.PACKAGE_VERSION}`
+  return `Cloudbase Web UI ${process.env.PACKAGE_VERSION}`
 }
 
 export const getBackendVersion = ({

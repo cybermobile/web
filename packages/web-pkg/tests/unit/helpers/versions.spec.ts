@@ -9,7 +9,7 @@ describe('collect version information', () => {
       process.env.PACKAGE_VERSION = '1.0.0'
     })
     it('provides the web version with a static string without exceptions', () => {
-      expect(getWebVersion()).toBe('OpenCloud Web UI 1.0.0')
+      expect(getWebVersion()).toBe('Cloudbase Web UI 1.0.0')
     })
   })
   describe('backend version', () => {

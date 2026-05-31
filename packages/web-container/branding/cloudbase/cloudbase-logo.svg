@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="184" height="40" viewBox="0 0 184 40" role="img" aria-labelledby="title">
+  <title id="title">Cloudbase</title>
+  <g fill="none" fill-rule="evenodd">
+    <rect width="40" height="40" rx="8" fill="#20434F"/>
+    <path d="M20 27.6l2.1-1.2v-7.8l6.7-3.9v-2.4l-2.1-1.2-6.8 3.9-6.7-3.9-2.1 1.2v2.4l6.7 3.9v7.8L20 27.6z" fill="#E2BAFF"/>
+    <path d="M32 9.6L20 2.7 8 9.6v4.3l12-6.9 12 6.9V9.6zM32 26.1L20 33 8 26.1v4.3l12 6.9 12-6.9v-4.3z" fill="#E2BAFF"/>
+    <text x="52" y="26" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Cloudbase</text>
+  </g>
+</svg>

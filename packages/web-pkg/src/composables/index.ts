@@ -1,5 +1,7 @@
 export * from './ability'
 export * from './actions'
+export * from './aiTools'
+export * from './aiToolsChatContext'
 export * from './appDefaults'
 export * from './appProviderService'
 export * from './archiverService'

@@ -1,0 +1,30 @@
+{
+  "common": {
+    "name": "Cloudbase",
+    "slogan": "Your company cloud foundation",
+    "logo": "/themes/opencloud/assets/logo.svg",
+    "logoMobile": "/themes/opencloud/assets/logo.svg"
+  },
+  "clients": {
+    "android": {},
+    "desktop": {},
+    "ios": {},
+    "web": {
+      "defaults": {
+        "logo": "/themes/opencloud/assets/logo.svg",
+        "logoMobile": "/themes/opencloud/assets/logo.svg",
+        "favicon": "/img/favicon.svg"
+      },
+      "themes": [
+        {
+          "isDark": false,
+          "label": "Light Theme"
+        },
+        {
+          "isDark": true,
+          "label": "Dark Theme"
+        }
+      ]
+    }
+  }
+}

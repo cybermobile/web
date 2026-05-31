@@ -1,8 +1,13 @@
 {
   "server": "https://host.docker.internal:9200",
-  "theme": "https://host.docker.internal:9200/themes/opencloud/theme.json",
+  "theme": "/branding/cloudbase/theme.json",
   "options": {
-    "contextHelpersReadMore": true
+    "contextHelpersReadMore": true,
+    "aiTools": {
+      "agentUrl": "https://agent.opencloud.test",
+      "rcloneUrl": "https://rclone.opencloud.test",
+      "confluenceUrl": "https://confluence.opencloud.test"
+    }
   },
   "apps": [
     "files",
@@ -18,6 +23,12 @@
     "activities",
     "preview",
     "mail",
-    "contacts"
+    "contacts",
+    "ai-chat",
+    "compliance",
+    "confluence",
+    "file-organizer",
+    "cloud-sync",
+    "ai-tools"
   ]
 }

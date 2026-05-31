@@ -1,0 +1,2860 @@
+/* Layout wrapper only. Everything else (sidebar colors, hover states,
+   active-link outline, typography) comes from OpenCloud's design system
+   via the oc-* classes applied directly on the template markup. */
+.compliance-page {
+  height: 100%;
+  overflow: hidden;
+  color: var(--oc-role-on-surface, #191c1d);
+}
+.compliance-page .page-layout {
+  display: flex;
+  height: 100%;
+}
+.compliance-page .compliance-sidebar {
+  min-width: 230px;
+  max-width: 230px;
+}
+.compliance-page .page-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 16px 40px;
+  background: var(--oc-role-surface, #fff);
+  border: 1px solid var(--oc-role-outline-variant, #eceef0);
+  border-radius: 10.5px 0 0 10.5px;
+}
+
+.compliance-page .page-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  background: var(--oc-role-surface, #fff);
+  z-index: 10;
+}
+.compliance-page .page-title-sub {
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.65;
+  margin-left: 6px;
+}
+
+/* Cards */
+.compliance-page .card {
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(128, 128, 128, 0.06);
+  margin-bottom: 16px;
+}
+.compliance-page .card-error {
+  border-color: var(--oc-role-error, #dc2626);
+}
+/* flex-direction: row is explicit because OpenCloud's global .oc-card-header
+   defaults to column, which would stack label + button vertically when both
+   classes are applied together. Gap keeps items apart so an unusually long
+   title wraps with breathing room instead of colliding with the action. */
+.compliance-page .card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+}
+.compliance-page .card-header-actions {
+  display: flex;
+  gap: 6px;
+}
+.compliance-page .card-body {
+  padding: 14px;
+}
+.compliance-page .card-body-empty {
+  padding: 20px 14px;
+  text-align: center;
+  opacity: 0.5;
+  font-size: 13px;
+}
+
+/* Shared empty-state card used across tabs. Meant for "this whole page
+   has no data yet" — renders an icon, title, explanatory body, and
+   two action buttons. Bigger and more inviting than the inline
+   card-body-empty, which is meant for "this one card is empty". */
+.compliance-page .empty-state-card {
+  padding: 40px 24px;
+  text-align: center;
+  margin: 20px 0;
+  border: 1px dashed var(--oc-role-outline-variant, rgba(128, 128, 128, 0.25));
+  background: var(--oc-role-surface-container, rgba(128, 128, 128, 0.04));
+}
+.compliance-page .empty-state-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+.compliance-page .empty-state-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.compliance-page .empty-state-body {
+  font-size: 13px;
+  line-height: 1.5;
+  opacity: 0.75;
+  max-width: 520px;
+  margin: 0 auto 16px;
+}
+.compliance-page .empty-state-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.compliance-page .card-body-table {
+  padding: 0;
+}
+
+/* Form helpers */
+.compliance-page .form-help {
+  font-size: 12px;
+  opacity: 0.5;
+  margin: 0 0 12px;
+}
+.compliance-page .link {
+  color: var(--oc-role-primary, #00677f);
+  text-decoration: none;
+}
+.compliance-page .link:hover {
+  text-decoration: underline;
+}
+
+/* Framework grid */
+.compliance-page .framework-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+  align-items: stretch;
+}
+.compliance-page .framework-card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.compliance-page .framework-card > .oc-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+.compliance-page .framework-desc {
+  font-size: 13px;
+  opacity: 0.75;
+  line-height: 1.4;
+  margin: 0 0 12px;
+}
+.compliance-page .framework-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  margin-bottom: 14px;
+  padding-top: 12px;
+}
+.compliance-page .meta-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(128, 128, 128, 0.12);
+}
+.compliance-page .meta-pill-score {
+  font-weight: 700;
+}
+.compliance-page .meta-pill-good {
+  background: rgba(13, 133, 111, 0.15);
+  color: #0d856f;
+}
+.compliance-page .meta-pill-warn {
+  background: rgba(245, 158, 11, 0.15);
+  color: #b45309;
+}
+.compliance-page .meta-pill-bad {
+  background: rgba(220, 53, 69, 0.15);
+  color: #b91c1c;
+}
+
+.compliance-page .score-breakdown {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.compliance-page .score-cell {
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  background: rgba(128, 128, 128, 0.08);
+}
+.compliance-page .score-num {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+.compliance-page .score-label {
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.65;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+.compliance-page .score-covered {
+  background: rgba(13, 133, 111, 0.1);
+}
+.compliance-page .score-covered .score-num {
+  color: #0d856f;
+}
+.compliance-page .score-partial {
+  background: rgba(245, 158, 11, 0.1);
+}
+.compliance-page .score-partial .score-num {
+  color: #b45309;
+}
+.compliance-page .score-missing {
+  background: rgba(220, 53, 69, 0.1);
+}
+.compliance-page .score-missing .score-num {
+  color: #b91c1c;
+}
+
+.compliance-page .framework-actions {
+  display: flex;
+  gap: 8px;
+}
+.compliance-page .framework-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  background: rgba(220, 53, 69, 0.1);
+  color: #b91c1c;
+  border: 1px solid rgba(220, 53, 69, 0.25);
+}
+.compliance-page .framework-error > div {
+  flex: 1;
+}
+
+/* A3: top-of-page error with retry action */
+.compliance-page .error-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.compliance-page .error-body > div {
+  flex: 1;
+}
+
+/* A1: threshold legend */
+.compliance-page .legend-card {
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0 18px;
+  background: rgba(128, 128, 128, 0.04);
+}
+
+/* First-run onboarding card — replaces the heavy dashboard legend
+   with actionable guidance. Self-hides once all steps complete. */
+.compliance-page .onboarding-card {
+  padding: 16px 18px;
+  margin: 0 0 16px;
+  background: var(--oc-role-surface-container, rgba(13, 133, 111, 0.04));
+  border: 1px solid var(--oc-role-outline-variant, rgba(13, 133, 111, 0.25));
+  border-left: 3px solid var(--oc-role-primary, #0d856f);
+  border-radius: 8px;
+}
+.compliance-page .onboarding-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.compliance-page .onboarding-head h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+.compliance-page .onboarding-dismiss {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 12px;
+  opacity: 0.65;
+  padding: 0;
+}
+.compliance-page .onboarding-dismiss:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+.compliance-page .onboarding-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.compliance-page .onboarding-steps li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--oc-role-surface, #fff);
+  border: 1px solid var(--oc-role-outline-variant, rgba(128, 128, 128, 0.15));
+  border-radius: 6px;
+}
+.compliance-page .onboarding-step-marker {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--oc-role-surface-container-highest, rgba(128, 128, 128, 0.15));
+  color: var(--oc-role-on-surface, inherit);
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.compliance-page .onboarding-done .onboarding-step-marker {
+  background: var(--oc-role-primary, #0d856f);
+  color: var(--oc-role-on-primary, #fff);
+}
+.compliance-page .onboarding-done {
+  opacity: 0.65;
+}
+.compliance-page .onboarding-step-body {
+  flex: 1;
+}
+.compliance-page .onboarding-step-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+.compliance-page .onboarding-step-desc {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+/* Compact classification helper that replaced the big legend card. */
+.compliance-page .dashboard-helper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+  font-size: 12px;
+  color: var(--oc-role-on-surface-variant, inherit);
+  opacity: 0.85;
+}
+.compliance-page .dashboard-helper-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.compliance-page .dashboard-helper-tooltip {
+  cursor: help;
+  opacity: 0.6;
+  font-size: 13px;
+}
+.compliance-page .dashboard-helper-tooltip:hover {
+  opacity: 1;
+}
+
+/* Section heading inside the Frameworks tab — separates the "Run gap
+   analysis" cards from the "Upload required source docs" cards. */
+.compliance-page .framework-section-heading {
+  margin: 22px 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* Corpus show-all toggle in Frameworks tab. */
+.compliance-page .corpus-show-all {
+  background: transparent;
+  border: none;
+  color: var(--oc-role-primary, #0d856f);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 6px 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.compliance-page .corpus-show-all:hover {
+  text-decoration: none;
+}
+.compliance-page .btn-link {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--oc-role-primary, #0d856f);
+  padding: 0;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.compliance-page .btn-link:hover {
+  text-decoration: none;
+}
+.compliance-page .legend-header {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.55;
+  margin-bottom: 10px;
+}
+.compliance-page .legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 8px;
+}
+.compliance-page .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+.compliance-page .legend-text {
+  opacity: 0.75;
+}
+
+/* B6: corpus metadata */
+.compliance-page .corpus-card {
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 0 0 18px;
+  background: rgba(128, 128, 128, 0.04);
+}
+.compliance-page .corpus-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.compliance-page .corpus-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.55;
+}
+.compliance-page .corpus-summary {
+  font-size: 12px;
+  opacity: 0.6;
+}
+.compliance-page .corpus-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.compliance-page .corpus-source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  background: rgba(128, 128, 128, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.compliance-page .corpus-source-name {
+  font-weight: 600;
+}
+.compliance-page .corpus-source-meta {
+  opacity: 0.6;
+  font-size: 11px;
+}
+.compliance-page .corpus-empty {
+  font-size: 12px;
+  opacity: 0.5;
+  padding: 4px 0;
+}
+
+/* C1: run history */
+.compliance-page .run-history-section {
+  margin-top: 24px;
+}
+.compliance-page .run-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.compliance-page .run-history-table th {
+  text-align: left;
+  padding: 6px 10px;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  opacity: 0.55;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+}
+.compliance-page .run-history-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+}
+.compliance-page .run-row:hover {
+  background: rgba(128, 128, 128, 0.05);
+}
+
+/* C2: trend indicators */
+.compliance-page .trend-indicator {
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 6px;
+}
+.compliance-page .trend-up {
+  color: #16a34a;
+}
+.compliance-page .trend-down {
+  color: #dc2626;
+}
+.compliance-page .trend-flat {
+  color: #6b7280;
+}
+
+/* A4: severity badges (distinct from status badges) */
+.compliance-page .severity-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border: 1px solid transparent;
+}
+.compliance-page .severity-major {
+  background: rgba(220, 53, 69, 0.12);
+  color: #b91c1c;
+  border-color: rgba(220, 53, 69, 0.3);
+}
+.compliance-page .severity-minor {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+.compliance-page .severity-observation {
+  background: rgba(100, 116, 139, 0.12);
+  color: #475569;
+  border-color: rgba(100, 116, 139, 0.3);
+}
+
+/* A5: sortable column headers */
+.compliance-page .th-sort {
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.1s;
+}
+.compliance-page .th-sort:hover {
+  background: rgba(128, 128, 128, 0.15);
+}
+.compliance-page .sort-arrow {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 10px;
+  opacity: 0.7;
+  min-width: 10px;
+}
+
+/* A6/A7: search + filter toolbar above findings table */
+.compliance-page .findings-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+  background: rgba(128, 128, 128, 0.03);
+  flex-wrap: wrap;
+}
+.compliance-page .findings-search {
+  flex: 1 1 260px;
+  min-width: 200px;
+  max-width: 360px;
+}
+.compliance-page .findings-search-count {
+  white-space: nowrap;
+  margin-left: auto;
+}
+.compliance-page .filter-select {
+  flex: 0 0 auto;
+  width: auto;
+  padding-right: 28px;
+}
+.compliance-page .filter-prefix {
+  flex: 0 0 auto;
+  width: 160px;
+}
+.compliance-page .filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.compliance-page .filter-toggle input {
+  margin: 0;
+}
+
+/* A10-A12: export button group */
+.compliance-page .export-group {
+  display: flex;
+  gap: 4px;
+  margin-right: 8px;
+  padding-right: 8px;
+  border-right: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+/* A8: next-action highlighted box */
+.compliance-page .next-action {
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+.compliance-page .next-action .detail-label {
+  color: #b45309;
+}
+
+/* A9: copy citation button */
+.compliance-page .copy-btn {
+  margin-left: auto;
+  padding: 2px 8px;
+  font-size: 10px;
+}
+
+/* A13: degraded-results warning card */
+.compliance-page .card-warning {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.08);
+}
+.compliance-page .card-warning .card-body {
+  color: #92400e;
+}
+.compliance-page .card-ok {
+  border-color: rgba(13, 133, 111, 0.35);
+  background: rgba(13, 133, 111, 0.06);
+}
+.compliance-page .card-ok .card-header {
+  color: #0d856f;
+}
+.compliance-page .grounding-pct {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(128, 128, 128, 0.08);
+}
+.compliance-page .grounding-pct.coverage-good {
+  color: #0d856f;
+  background: rgba(13, 133, 111, 0.15);
+}
+.compliance-page .grounding-pct.coverage-warn {
+  color: #b45309;
+  background: rgba(245, 158, 11, 0.15);
+}
+.compliance-page .grounding-issues {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+}
+.compliance-page .grounding-issues li {
+  margin-bottom: 8px;
+}
+.compliance-page .grounding-detail {
+  font-size: 12px;
+  opacity: 0.65;
+  margin-top: 2px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.compliance-page .grounding-missing {
+  background: rgba(220, 53, 69, 0.15);
+  color: #b91c1c;
+}
+.compliance-page .grounding-mismatched {
+  background: rgba(245, 158, 11, 0.18);
+  color: #b45309;
+}
+.compliance-page .grounding-unverifiable {
+  background: rgba(128, 128, 128, 0.15);
+  color: #555;
+}
+
+/* B1: streaming gap-analysis progress indicator */
+.compliance-page .run-progress {
+  margin: 10px 0 14px;
+  padding: 10px 12px;
+  background: rgba(13, 133, 111, 0.06);
+  border: 1px solid rgba(13, 133, 111, 0.2);
+  border-radius: 6px;
+}
+.compliance-page .run-progress-label {
+  display: flex;
+  gap: 10px;
+  font-size: 11px;
+  margin-bottom: 6px;
+  align-items: baseline;
+}
+.compliance-page .run-progress-label > span:first-child {
+  font-weight: 700;
+  color: #0d856f;
+  font-variant-numeric: tabular-nums;
+}
+.compliance-page .run-progress-control {
+  opacity: 0.75;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+.compliance-page .run-progress-bar {
+  height: 4px;
+  background: rgba(13, 133, 111, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.compliance-page .run-progress-fill {
+  height: 100%;
+  background: #0d856f;
+  transition: width 0.25s ease-out;
+}
+
+.compliance-page code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 11px;
+  padding: 1px 5px;
+  background: rgba(128, 128, 128, 0.12);
+  border-radius: 3px;
+}
+
+/* Buttons */
+.compliance-page .btn {
+  padding: 8px 16px;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+  transition:
+    background 0.1s,
+    border-color 0.1s;
+}
+.compliance-page .btn:hover:not(:disabled) {
+  background: rgba(128, 128, 128, 0.1);
+}
+.compliance-page .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.compliance-page .btn-primary {
+  background: var(--oc-role-primary, #00677f);
+  color: white;
+  border-color: var(--oc-role-primary, #00677f);
+}
+.compliance-page .btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  background: var(--oc-role-primary, #00677f);
+}
+.compliance-page .btn-secondary {
+  background: transparent;
+}
+.compliance-page .btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+/* Summary banner */
+.compliance-page .summary-card .card-body {
+  padding: 18px 20px;
+}
+.compliance-page .summary-top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.compliance-page .summary-pct {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+  padding: 14px 22px;
+  border-radius: 10px;
+  background: rgba(128, 128, 128, 0.08);
+}
+.compliance-page .summary-pct.coverage-good {
+  background: rgba(13, 133, 111, 0.12);
+  color: #0d856f;
+}
+.compliance-page .summary-pct.coverage-warn {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+}
+.compliance-page .summary-pct.coverage-bad {
+  background: rgba(220, 53, 69, 0.12);
+  color: #b91c1c;
+}
+.compliance-page .summary-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+.compliance-page .summary-sub {
+  font-size: 13px;
+  opacity: 0.65;
+  margin-top: 4px;
+}
+
+/* Findings table */
+.compliance-page .data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.compliance-page .data-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-weight: 600;
+  background: rgba(128, 128, 128, 0.08);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.compliance-page .data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+  vertical-align: top;
+}
+.compliance-page .finding-row {
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.compliance-page .finding-row:hover {
+  background: rgba(128, 128, 128, 0.05);
+}
+.compliance-page .cell-name {
+  font-weight: 500;
+}
+.compliance-page .cell-mono {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12px;
+}
+.compliance-page .cell-meta {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.compliance-page .status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.compliance-page .status-covered {
+  background: rgba(13, 133, 111, 0.15);
+  color: #0d856f;
+}
+.compliance-page .status-partial {
+  background: rgba(245, 158, 11, 0.15);
+  color: #b45309;
+}
+.compliance-page .status-missing {
+  background: rgba(220, 53, 69, 0.15);
+  color: #b91c1c;
+}
+
+/* Detail row */
+.compliance-page .finding-detail-row td {
+  background: rgba(128, 128, 128, 0.04);
+  padding: 14px 24px 18px;
+}
+.compliance-page .finding-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.compliance-page .detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.compliance-page .detail-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.55;
+}
+.compliance-page .detail-value {
+  font-size: 13px;
+  line-height: 1.45;
+}
+.compliance-page .evidence-list {
+  list-style: decimal inside;
+  padding: 0;
+  margin: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.compliance-page .evidence-item {
+  padding: 10px 12px;
+  background: var(--oc-role-surface-container, rgba(128, 128, 128, 0.04));
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 6px;
+}
+.compliance-page .evidence-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.compliance-page .evidence-header strong {
+  font-size: 12px;
+}
+.compliance-page .evidence-source-link {
+  font-weight: 600;
+  color: var(--oc-role-primary, #0a7d8c);
+  text-decoration: none;
+}
+.compliance-page .evidence-source-link:hover {
+  text-decoration: underline;
+}
+.compliance-page .evidence-score {
+  margin-left: auto;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  padding: 2px 8px;
+  background: rgba(128, 128, 128, 0.12);
+  border-radius: 999px;
+}
+.compliance-page .evidence-section {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+.compliance-page .evidence-text {
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+/* Findings tab */
+.compliance-page .nav-badge {
+  background: #dc2626;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 1px 6px;
+  margin-left: auto;
+}
+.compliance-page .findings-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.compliance-page .findings-stats-bar {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+.compliance-page .stat-chip {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.compliance-page .stat-open {
+  background: rgba(220, 53, 69, 0.12);
+  color: #b91c1c;
+}
+.compliance-page .stat-progress {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+}
+.compliance-page .stat-closed {
+  background: rgba(22, 163, 74, 0.12);
+  color: #15803d;
+}
+
+.compliance-page .findings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.compliance-page .finding-card {
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.compliance-page .finding-card.finding-open {
+  border-left: 3px solid #dc2626;
+}
+.compliance-page .finding-card.finding-in_progress {
+  border-left: 3px solid #d97706;
+}
+.compliance-page .finding-card.finding-closed {
+  border-left: 3px solid #16a34a;
+  opacity: 0.7;
+}
+.compliance-page .finding-card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  gap: 8px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+}
+.compliance-page .finding-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+.compliance-page .finding-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.compliance-page .finding-card-check {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  accent-color: var(--oc-role-primary, #0d856f);
+}
+.compliance-page .finding-selected {
+  outline: 2px solid var(--oc-role-primary, #0d856f);
+  outline-offset: -2px;
+}
+
+/* Bulk findings toolbar row + floating action bar */
+.compliance-page .findings-bulk-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+.compliance-page .findings-bulk-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.compliance-page .findings-bulk-checkbox input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--oc-role-primary, #0d856f);
+}
+.compliance-page .findings-bulk-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--oc-role-surface, #fff);
+  color: var(--oc-role-on-surface, #191c1d);
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  z-index: 900;
+  max-width: 92vw;
+}
+.compliance-page .findings-bulk-count {
+  font-size: 12px;
+  font-weight: 600;
+}
+.compliance-page .findings-bulk-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.compliance-page .findings-bulk-message {
+  font-size: 11px;
+}
+.compliance-page .findings-bulk-ok {
+  color: #2ea043;
+}
+.compliance-page .findings-bulk-err {
+  color: #dc2626;
+}
+.compliance-page .bulk-bar-enter-active,
+.compliance-page .bulk-bar-leave-active {
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease;
+}
+.compliance-page .bulk-bar-enter-from,
+.compliance-page .bulk-bar-leave-to {
+  transform: translate(-50%, 20px);
+  opacity: 0;
+}
+
+/* Page title + right-aligned action row. Used on Audit Prep to keep the
+   binder-download button on the same line as the heading. */
+.compliance-page .page-title-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.compliance-page .page-title-row .page-title {
+  margin-bottom: 0;
+}
+.compliance-page .bulk-inline-message {
+  font-size: 12px;
+  margin-bottom: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.compliance-page .finding-card-body {
+  padding: 10px 14px;
+  font-size: 12px;
+}
+.compliance-page .finding-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  opacity: 0.6;
+  margin-bottom: 6px;
+  font-size: 11px;
+}
+.compliance-page .finding-reasoning {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.compliance-page .finding-notes {
+  background: rgba(128, 128, 128, 0.06);
+  padding: 8px 10px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+.compliance-page .finding-evidence-summary {
+  font-size: 11px;
+  opacity: 0.7;
+}
+.compliance-page .finding-document-summary {
+  color: var(--oc-role-primary, #00677f);
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.compliance-page .finding-status-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.compliance-page .fstatus-open {
+  background: rgba(220, 53, 69, 0.12);
+  color: #b91c1c;
+}
+.compliance-page .fstatus-in_progress {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+}
+.compliance-page .fstatus-closed {
+  background: rgba(22, 163, 74, 0.12);
+  color: #15803d;
+}
+.compliance-page .fstatus-remediation {
+  background: rgba(14, 165, 233, 0.12);
+  color: #0369a1;
+}
+.compliance-page .btn-danger {
+  color: #dc2626;
+  border-color: rgba(220, 53, 69, 0.3);
+}
+.compliance-page .btn-danger:hover {
+  background: rgba(220, 53, 69, 0.08);
+}
+
+/* Finding detail — 5-tab panel (PRD §8.2) */
+/* Inherits width + max-height from .edit-modal — only overrides what the
+   header/body/footer split needs (no outer padding, hidden overflow so the
+   body handles scroll instead of the panel). */
+.compliance-page .finding-detail-panel {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.compliance-page .finding-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--oc-role-outline-variant, #eceef0);
+}
+.compliance-page .finding-detail-header h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+.compliance-page .finding-detail-subheader {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.compliance-page .finding-detail-meta {
+  font-size: 11px;
+  opacity: 0.55;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 600;
+}
+.compliance-page .severity-major {
+  background: rgba(220, 53, 69, 0.15);
+  color: #b91c1c;
+}
+.compliance-page .severity-minor {
+  background: rgba(245, 158, 11, 0.15);
+  color: #b45309;
+}
+.compliance-page .severity-observation {
+  background: rgba(128, 128, 128, 0.15);
+  color: #555;
+}
+.compliance-page .severity-none {
+  background: rgba(13, 133, 111, 0.12);
+  color: #0d856f;
+}
+.compliance-page .finding-status-open {
+  background: rgba(220, 53, 69, 0.12);
+  color: #b91c1c;
+}
+.compliance-page .finding-status-in_progress {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+}
+.compliance-page .finding-status-closed {
+  background: rgba(22, 163, 74, 0.12);
+  color: #15803d;
+}
+.compliance-page .finding-tabs {
+  display: flex;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--oc-role-outline-variant, #eceef0);
+  gap: 2px;
+  flex-shrink: 0;
+}
+.compliance-page .finding-tab {
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--oc-role-on-surface, #191c1d);
+  opacity: 0.6;
+  transition: all 0.12s;
+}
+.compliance-page .finding-tab:hover {
+  opacity: 0.9;
+}
+.compliance-page .finding-tab.active {
+  opacity: 1;
+  border-bottom-color: var(--oc-role-primary, #00677f);
+  color: var(--oc-role-primary, #00677f);
+}
+.compliance-page .finding-tab-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+.compliance-page .finding-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.compliance-page .finding-stat {
+  background: rgba(128, 128, 128, 0.06);
+  padding: 10px;
+  border-radius: 6px;
+}
+.compliance-page .finding-stat-label {
+  font-size: 10px;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+/* Standardized with .summary-tile-value and .score-num (22px / 700) —
+   all three are "primary stat number" semantics, previously 15 / 22 / 22
+   which read as inconsistent hierarchy. */
+.compliance-page .finding-stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+.compliance-page .finding-section {
+  margin-bottom: 14px;
+}
+.compliance-page .finding-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+  margin-bottom: 5px;
+}
+.compliance-page .finding-section-body {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.compliance-page .finding-reasoning {
+  background: rgba(128, 128, 128, 0.06);
+  padding: 10px 12px;
+  border-radius: 6px;
+  border-left: 3px solid var(--oc-role-primary, #00677f);
+  margin-bottom: 6px;
+}
+.compliance-page .finding-ai-warning {
+  background: rgba(217, 119, 6, 0.12);
+  border: 1px solid rgba(217, 119, 6, 0.28);
+  border-radius: 6px;
+  color: var(--oc-role-on-surface, #191c1d);
+  margin-bottom: 6px;
+  padding: 10px 12px;
+}
+.compliance-page .finding-linked-doc-list {
+  display: grid;
+  gap: 8px;
+}
+.compliance-page .finding-linked-doc {
+  align-items: flex-start;
+  background: var(--oc-role-surface, #fff);
+  border: 1px solid var(--oc-role-outline-variant, #d8dee4);
+  border-radius: 6px;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 9px 11px;
+  text-align: left;
+}
+.compliance-page .finding-linked-doc:hover {
+  border-color: var(--oc-role-primary, #00677f);
+}
+.compliance-page .finding-linked-doc-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+.compliance-page .finding-linked-doc-meta {
+  font-size: 12px;
+  opacity: 0.75;
+}
+.compliance-page .finding-threshold-info {
+  font-size: 12px;
+  opacity: 0.75;
+  line-height: 1.5;
+  padding: 8px 10px;
+  background: rgba(128, 128, 128, 0.05);
+  border-radius: 4px;
+}
+.compliance-page .finding-empty {
+  padding: 20px;
+  text-align: center;
+  opacity: 0.5;
+  font-size: 13px;
+}
+.compliance-page .finding-evidence-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.compliance-page .finding-evidence-card {
+  background: rgba(128, 128, 128, 0.05);
+  border: 1px solid rgba(128, 128, 128, 0.12);
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+.compliance-page .finding-evidence-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.compliance-page .finding-evidence-source {
+  color: var(--oc-role-primary, #00677f);
+  font-weight: 600;
+  font-size: 12px;
+  text-decoration: none;
+}
+.compliance-page .finding-evidence-source:hover {
+  text-decoration: underline;
+}
+.compliance-page .finding-evidence-clause {
+  font-size: 11px;
+  opacity: 0.7;
+}
+.compliance-page .finding-evidence-score {
+  margin-left: auto;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  opacity: 0.5;
+}
+.compliance-page .finding-evidence-section {
+  font-size: 12px;
+  opacity: 0.65;
+  margin-bottom: 4px;
+  font-style: italic;
+}
+.compliance-page .finding-evidence-text {
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.85;
+  white-space: pre-wrap;
+}
+.compliance-page .finding-linked-actions {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(128, 128, 128, 0.1);
+}
+.compliance-page .finding-remediation-hint {
+  align-items: center;
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.25);
+  border-radius: 6px;
+  color: var(--oc-role-on-surface, #191c1d);
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding: 10px 12px;
+}
+.compliance-page .finding-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.compliance-page .finding-timeline li {
+  padding: 8px 12px;
+  background: rgba(128, 128, 128, 0.05);
+  border-radius: 6px;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.compliance-page .finding-timeline-stage {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 700;
+  opacity: 0.65;
+  min-width: 110px;
+}
+.compliance-page .finding-timeline-time {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  opacity: 0.7;
+}
+.compliance-page .finding-timeline-note {
+  font-size: 12px;
+  line-height: 1.5;
+  flex: 1;
+}
+.compliance-page .btn-close {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 0 4px;
+  border-radius: 4px;
+}
+.compliance-page .btn-close:hover {
+  opacity: 1;
+  background: rgba(128, 128, 128, 0.1);
+}
+
+/* One-glance summary card — grid of tiles under the page title. Each
+   tile is clickable and jumps to the relevant tab or scrolls to the
+   relevant section. Colors track severity: warn for findings,
+   danger for anomalies. */
+.compliance-page .summary-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin: 0 0 18px;
+}
+.compliance-page .summary-tile {
+  background: rgba(128, 128, 128, 0.06);
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 8px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition:
+    background 0.12s,
+    transform 0.12s,
+    box-shadow 0.12s;
+}
+.compliance-page .summary-tile:hover {
+  background: rgba(128, 128, 128, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+.compliance-page .summary-tile-value {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+  color: var(--oc-role-on-surface, #191c1d);
+}
+.compliance-page .summary-tile-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.65;
+}
+.compliance-page .summary-tile-sub {
+  font-size: 11px;
+  opacity: 0.55;
+  margin-top: 4px;
+}
+.compliance-page .summary-tile-warn {
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+.compliance-page .summary-tile-warn .summary-tile-value {
+  color: #b45309;
+}
+.compliance-page .summary-tile-danger {
+  background: rgba(220, 53, 69, 0.06);
+  border-color: rgba(220, 53, 69, 0.3);
+}
+.compliance-page .summary-tile-danger .summary-tile-value {
+  color: #b91c1c;
+}
+
+/* PRD §6.2 anomaly detection card */
+.compliance-page .anomalies-card {
+  border-color: rgba(245, 158, 11, 0.45);
+  background: rgba(245, 158, 11, 0.06);
+  margin-bottom: 16px;
+}
+.compliance-page .anomalies-card .card-header {
+  color: #b45309;
+}
+.compliance-page .anomaly-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.compliance-page .anomaly-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  background: var(--oc-role-surface, rgba(128, 128, 128, 0.06));
+  font-size: 13px;
+}
+.compliance-page .anomaly-kind {
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  opacity: 0.65;
+  min-width: 110px;
+}
+.compliance-page .anomaly-detail {
+  flex: 1;
+  opacity: 0.85;
+}
+.compliance-page .anomaly-more {
+  font-size: 12px;
+  opacity: 0.55;
+  padding-left: 8px;
+}
+.compliance-page .anomaly-ask-btn {
+  font-size: 10px;
+  padding: 2px 8px;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid rgba(0, 103, 127, 0.25);
+  color: var(--oc-role-primary, #00677f);
+  border-radius: 4px;
+}
+.compliance-page .anomaly-ask-btn:hover {
+  background: rgba(0, 103, 127, 0.08);
+}
+
+/* Structured-evidence form: type picker */
+.compliance-page .struct-type-row {
+  margin-bottom: 12px;
+}
+.compliance-page .struct-type-toggle {
+  display: inline-flex;
+  gap: 4px;
+  background: rgba(128, 128, 128, 0.1);
+  padding: 3px;
+  border-radius: 8px;
+}
+.compliance-page .struct-type-btn {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--oc-role-on-surface, #191c1d);
+  opacity: 0.7;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
+}
+.compliance-page .struct-type-btn:hover {
+  opacity: 1;
+}
+.compliance-page .struct-type-btn.active {
+  background: var(--oc-role-surface, #fff);
+  opacity: 1;
+  font-weight: 600;
+  outline: 1px solid #eceef0;
+}
+
+/* Manual cert-entry form */
+.compliance-page .cert-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.compliance-page .cert-form-grid label {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 4px;
+  color: var(--oc-role-on-surface, #191c1d);
+}
+.compliance-page .cert-form-grid .form-input {
+  font-size: 13px;
+  font-weight: 400;
+}
+.compliance-page .cert-form-desc {
+  grid-column: 1 / -1;
+}
+.compliance-page .cert-file-input {
+  padding: 6px 0;
+}
+
+/* PRD §6.2 certificate expiry tracker */
+.compliance-page .expiry-card {
+  margin-bottom: 16px;
+}
+.compliance-page .expiry-total {
+  font-size: 11px;
+  opacity: 0.55;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 600;
+}
+.compliance-page .expiry-buckets {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.compliance-page .expiry-bucket-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+.compliance-page .expiry-bucket-label.expiry-expired {
+  background: rgba(220, 53, 69, 0.18);
+  color: #b91c1c;
+}
+.compliance-page .expiry-bucket-label.expiry-d30 {
+  background: rgba(245, 158, 11, 0.2);
+  color: #b45309;
+}
+.compliance-page .expiry-bucket-label.expiry-d60 {
+  background: rgba(245, 158, 11, 0.1);
+  color: #b45309;
+}
+.compliance-page .expiry-bucket-label.expiry-d90 {
+  background: rgba(128, 128, 128, 0.12);
+  color: #555;
+}
+.compliance-page .expiry-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: rgba(128, 128, 128, 0.04);
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+.compliance-page .expiry-row-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.compliance-page .expiry-row-tag {
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(128, 128, 128, 0.12);
+  border-radius: 999px;
+  padding: 1px 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.compliance-page .expiry-row-days {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.compliance-page .expiry-row-days.expiry-expired {
+  background: rgba(220, 53, 69, 0.15);
+  color: #b91c1c;
+}
+.compliance-page .expiry-row-days.expiry-d30 {
+  background: rgba(245, 158, 11, 0.18);
+  color: #b45309;
+}
+.compliance-page .expiry-row-days.expiry-d60 {
+  background: rgba(245, 158, 11, 0.1);
+  color: #b45309;
+}
+.compliance-page .expiry-row-days.expiry-d90 {
+  color: #555;
+  background: rgba(128, 128, 128, 0.1);
+}
+
+/* Scan-ingest modal */
+.compliance-page .scan-result {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: rgba(13, 133, 111, 0.08);
+  border: 1px solid rgba(13, 133, 111, 0.2);
+  border-radius: 6px;
+  font-size: 12px;
+}
+.compliance-page .scan-errors {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: rgba(220, 53, 69, 0.08);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  border-radius: 6px;
+  font-size: 12px;
+  color: #b91c1c;
+}
+.compliance-page .scan-errors ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+.compliance-page .form-help code {
+  background: rgba(128, 128, 128, 0.1);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+}
+
+/* Edit modal */
+.compliance-page .edit-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+/* Every modal: capped at 85vh and scrolls its own content rather than
+   pushing action buttons off the viewport. Complex modals (doc panel,
+   finding detail) override with a header/body/footer split for a fixed
+   action row + scrollable middle; simple modals just scroll the whole
+   panel when content is long. */
+/* Single modal size. Every overlay panel is 720px / 95vw, caps at 85vh,
+   and scrolls its own content. Simple forms get a bit of extra horizontal
+   room; complex detail views fit comfortably; the user never sees three
+   different box sizes depending on what they clicked. */
+.compliance-page .edit-modal {
+  background: var(--oc-role-surface, #fff);
+  color: var(--oc-role-on-surface, #191c1d);
+  border-radius: 12px;
+  padding: 24px;
+  width: 720px;
+  max-width: 95vw;
+  height: 85vh;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.compliance-page .edit-modal h3 {
+  font-size: 16px;
+  margin: 0 0 16px;
+}
+.compliance-page .edit-field {
+  margin-bottom: 12px;
+}
+.compliance-page .edit-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.compliance-page .edit-textarea {
+  width: 100%;
+  resize: vertical;
+  font-family: inherit;
+}
+.compliance-page .edit-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+.compliance-page .edit-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.compliance-page .edit-header h3 {
+  margin: 0;
+  flex: 1;
+  font-size: 15px;
+}
+
+/* Evidence library */
+.compliance-page .evidence-library {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.compliance-page .evidence-group-card {
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.compliance-page .evidence-group-header {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.compliance-page .evidence-group-title {
+  font-size: 14px;
+}
+.compliance-page .evidence-group-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  opacity: 0.6;
+}
+.compliance-page .evidence-group-controls {
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.compliance-page .evidence-control-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  padding: 4px 0;
+}
+.compliance-page .evidence-control-title {
+  opacity: 0.7;
+  flex: 1;
+}
+.compliance-page .evidence-control-clause {
+  font-size: 11px;
+  opacity: 0.5;
+}
+.compliance-page .evidence-control-score {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  opacity: 0.5;
+}
+
+/* Documents / pipeline Kanban */
+.compliance-page .doc-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.compliance-page .doc-form-grid label {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--oc-role-on-surface, #191c1d);
+  gap: 4px;
+}
+.compliance-page .doc-form-grid .form-input {
+  font-size: 13px;
+  font-weight: 400;
+}
+.compliance-page .doc-form-desc {
+  grid-column: 1 / -1;
+}
+.compliance-page .doc-form-desc textarea.form-input {
+  resize: vertical;
+  min-height: 60px;
+  font-family: inherit;
+}
+.compliance-page .doc-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+/* Kanban is a horizontal scroll-strip, not a wrapping grid — otherwise
+   a narrow body (e.g. when the chat drawer is open and consumes 440px
+   on the right) would bounce the last column onto a second row, which
+   no Kanban UI should ever do. Each column gets a fixed min/max width
+   so they stay predictable and the strip scrolls when the viewport
+   can't fit all 7 at once. `scrollbar-gutter: stable` avoids layout
+   jitter when the scrollbar appears. */
+.compliance-page .doc-kanban {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 14px;
+  overflow-x: auto;
+  scrollbar-gutter: stable;
+  padding-bottom: 4px;
+}
+.compliance-page .doc-column {
+  flex: 0 0 220px;
+  min-width: 220px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(128, 128, 128, 0.05);
+  border-radius: 8px;
+  padding: 8px;
+  min-height: 140px;
+}
+.compliance-page .doc-column-header {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.65;
+  padding: 4px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.compliance-page .doc-column-count {
+  background: rgba(128, 128, 128, 0.2);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.compliance-page .doc-column-empty {
+  font-size: 11px;
+  opacity: 0.3;
+  text-align: center;
+  padding: 8px;
+}
+.compliance-page .doc-card {
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition:
+    box-shadow 0.12s,
+    transform 0.12s;
+}
+.compliance-page .doc-card:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+.compliance-page .doc-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.compliance-page .doc-card-meta {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.compliance-page .doc-card-tag {
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(128, 128, 128, 0.12);
+  border-radius: 999px;
+  padding: 1px 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.compliance-page .doc-card-desc {
+  font-size: 11px;
+  opacity: 0.65;
+  line-height: 1.3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.compliance-page .stage-request {
+  color: #666;
+}
+.compliance-page .stage-research {
+  color: #00677f;
+}
+.compliance-page .stage-context_assembly {
+  color: #b45309;
+}
+.compliance-page .stage-draft {
+  color: #2563eb;
+}
+.compliance-page .stage-review {
+  color: #7c3aed;
+}
+.compliance-page .stage-approved {
+  color: #0d856f;
+}
+.compliance-page .stage-rejected {
+  color: #b91c1c;
+}
+.compliance-page .stage-badge-request {
+  background: rgba(128, 128, 128, 0.15);
+  color: #555;
+}
+.compliance-page .stage-badge-research {
+  background: rgba(0, 103, 127, 0.15);
+  color: #00677f;
+}
+.compliance-page .stage-badge-context_assembly {
+  background: rgba(245, 158, 11, 0.18);
+  color: #b45309;
+}
+.compliance-page .stage-badge-draft {
+  background: rgba(37, 99, 235, 0.15);
+  color: #2563eb;
+}
+.compliance-page .stage-badge-review {
+  background: rgba(124, 58, 237, 0.15);
+  color: #7c3aed;
+}
+.compliance-page .stage-badge-approved {
+  background: rgba(13, 133, 111, 0.15);
+  color: #0d856f;
+}
+.compliance-page .stage-badge-rejected {
+  background: rgba(220, 53, 69, 0.15);
+  color: #b91c1c;
+}
+
+/* Document detail panel: same outer size as every other modal — only the
+   internal layout differs (fixed header + scrollable body + fixed footer
+   so long drafts never bury the action buttons). */
+.compliance-page .doc-panel {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.compliance-page .doc-panel-head {
+  padding: 20px 24px 12px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+  flex-shrink: 0;
+}
+.compliance-page .doc-panel-head .edit-header {
+  margin-bottom: 10px;
+}
+.compliance-page .doc-panel-body {
+  padding: 16px 24px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+.compliance-page .doc-panel .edit-actions {
+  padding: 12px 24px;
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+  margin-top: 0;
+  flex-shrink: 0;
+  background: var(--oc-role-surface, #fff);
+  border-radius: 0 0 12px 12px;
+}
+.compliance-page .doc-stage-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 0 12px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  margin-bottom: 14px;
+}
+.compliance-page .doc-file-link {
+  font-size: 11px;
+  color: var(--oc-role-primary, #00677f);
+  text-decoration: none;
+  margin-left: auto;
+  max-width: 380px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.compliance-page .doc-file-link:hover {
+  text-decoration: underline;
+}
+.compliance-page .doc-file-pending {
+  font-size: 11px;
+  opacity: 0.55;
+  font-style: italic;
+  margin-left: auto;
+}
+.compliance-page .doc-file-error {
+  font-size: 11px;
+  color: #b91c1c;
+  margin-left: auto;
+  max-width: 380px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.compliance-page .doc-inline-error {
+  font-size: 12px;
+  color: #b91c1c;
+  background: rgba(220, 53, 69, 0.08);
+  border: 1px solid rgba(220, 53, 69, 0.25);
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+.compliance-page .doc-section {
+  margin-bottom: 16px;
+}
+.compliance-page .doc-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.65;
+  margin-bottom: 6px;
+}
+.compliance-page .doc-section-body {
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+.compliance-page .doc-hits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.compliance-page .doc-hits li {
+  background: rgba(128, 128, 128, 0.06);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+.compliance-page .doc-hits strong {
+  margin-right: 8px;
+}
+.compliance-page .doc-hits-source {
+  opacity: 0.6;
+  font-size: 11px;
+  margin-right: 8px;
+}
+.compliance-page .doc-hits-score {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  opacity: 0.5;
+}
+.compliance-page .doc-hits-text {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+/* The draft container hosts a StreamingText rendering markdown, so
+   it needs regular proportional typography — the old `pre`-like
+   styling (monospace + pre-wrap) would fight the rendered headers/
+   tables inside. Keep the container frame (bg, border, scroll cap)
+   but let the child flow naturally. */
+.compliance-page .doc-draft {
+  background: var(--oc-role-surface-container, rgba(128, 128, 128, 0.06));
+  color: var(--oc-role-on-surface, #191c1d);
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  max-height: 340px;
+  overflow-y: auto;
+}
+.compliance-page .doc-section-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.compliance-page .doc-expand-btn {
+  background: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  color: var(--oc-role-on-surface, inherit);
+  border-radius: 4px;
+  padding: 2px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.compliance-page .doc-expand-btn:hover {
+  background: rgba(128, 128, 128, 0.08);
+}
+.compliance-page .doc-draft-collapsed-hint {
+  font-size: 12px;
+  color: rgba(128, 128, 128, 0.8);
+  font-style: italic;
+  padding: 8px 12px;
+}
+/* Side panel mirrors the modal's chrome (surface, radius, shadow, vertical
+   rhythm) so the two panels read as one expanded unit rather than two
+   floating tiles. Width caps at 760px but collapses on narrow viewports. */
+/* Height matches .edit-modal exactly (85vh) so the two modals sit on
+   the same top/bottom line when the draft side panel is expanded.
+   Without a fixed height, `align-items: center` on the overlay would
+   offset each child by its own height — visually uneven. */
+.compliance-page .doc-draft-side {
+  background: var(--oc-role-surface, #fff);
+  color: var(--oc-role-on-surface, #191c1d);
+  border-radius: 12px;
+  width: 760px;
+  max-width: 45vw;
+  height: 85vh;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  margin-left: 16px;
+  overflow: hidden;
+}
+.compliance-page .doc-draft-side-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 12px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+  flex-shrink: 0;
+}
+.compliance-page .doc-draft-side-head h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.compliance-page .doc-draft-full {
+  flex: 1;
+  max-height: none;
+  margin: 16px 24px 24px;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-y: auto;
+}
+/* "● streaming live" chip next to the Draft section header + the
+   same chip on the expanded side panel's title. Pulses so it's
+   visibly different from the static state. */
+.compliance-page .doc-draft-live {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--oc-role-primary, #0d856f);
+  animation: doc-draft-live-pulse 1.4s ease-in-out infinite;
+}
+@keyframes doc-draft-live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+.compliance-page .doc-draft-pending {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* Framework Library */
+.compliance-page .framework-page-tabs {
+  margin: 14px 0 18px;
+  border-bottom: 1px solid var(--oc-role-outline-variant, rgba(128, 128, 128, 0.22));
+}
+.compliance-page .framework-tab-list {
+  align-items: center;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.compliance-page .framework-tab-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  border-bottom: 2px solid transparent;
+  color: var(--oc-role-on-surface-variant, inherit);
+  font-size: 13px;
+  font-weight: 600;
+}
+.compliance-page .framework-tab-active {
+  border-bottom-color: var(--oc-role-primary, #0d856f);
+  color: var(--oc-role-primary, #0d856f);
+}
+.compliance-page .framework-tabs-mobile {
+  padding-bottom: 10px;
+}
+.compliance-page .framework-library-panel {
+  margin-top: 4px;
+}
+.compliance-page .framework-tab-intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 14px;
+}
+.compliance-page .framework-tab-intro h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+}
+.compliance-page .framework-tab-intro p {
+  margin: 0;
+  max-width: 760px;
+  color: var(--oc-role-on-surface-variant, inherit);
+  font-size: 13px;
+  line-height: 1.45;
+  opacity: 0.75;
+}
+.compliance-page .framework-category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.compliance-page .framework-category-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--oc-role-outline-variant, rgba(128, 128, 128, 0.24));
+  border-radius: 999px;
+  background: var(--oc-role-surface, transparent);
+  color: var(--oc-role-on-surface, inherit);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+.compliance-page .framework-category-tab:hover,
+.compliance-page .framework-category-tab.active {
+  border-color: var(--oc-role-primary, #0d856f);
+  color: var(--oc-role-primary, #0d856f);
+}
+.compliance-page .framework-category-count {
+  display: inline-flex;
+  min-width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--oc-role-surface-container-high, rgba(128, 128, 128, 0.12));
+  color: inherit;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.compliance-page .framework-category-section {
+  margin-top: 18px;
+}
+.compliance-page .framework-category-section:first-of-type {
+  margin-top: 0;
+}
+.compliance-page .framework-category-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.compliance-page .framework-category-heading h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+.compliance-page .framework-category-heading span {
+  color: var(--oc-role-on-surface-variant, inherit);
+  font-size: 12px;
+  opacity: 0.6;
+}
+.compliance-page .framework-empty-category {
+  margin-top: 10px;
+}
+.compliance-page .framework-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+.compliance-page .framework-card-head {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.compliance-page .framework-card-head h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+.compliance-page .framework-sub {
+  font-size: 12px;
+  color: rgba(128, 128, 128, 0.9);
+}
+.compliance-page .framework-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+.compliance-page .framework-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.compliance-page .framework-badge-ok {
+  background: rgba(46, 160, 67, 0.15);
+  color: #2ea043;
+}
+.compliance-page .framework-badge-warn {
+  background: rgba(245, 158, 11, 0.18);
+  color: #d97706;
+}
+.compliance-page .framework-docs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.compliance-page .framework-doc {
+  border: 1px solid rgba(128, 128, 128, 0.18);
+  border-radius: 8px;
+  padding: 12px;
+}
+.compliance-page .framework-doc-ok {
+  border-color: rgba(46, 160, 67, 0.35);
+}
+.compliance-page .framework-doc-missing {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.04);
+}
+.compliance-page .framework-doc-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.compliance-page .framework-doc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.compliance-page .framework-doc-ok .framework-doc-icon {
+  background: rgba(46, 160, 67, 0.18);
+  color: #2ea043;
+}
+.compliance-page .framework-doc-missing .framework-doc-icon {
+  background: rgba(245, 158, 11, 0.22);
+  color: #d97706;
+}
+.compliance-page .framework-doc-meta {
+  flex: 1;
+}
+.compliance-page .framework-doc-title {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.compliance-page .framework-doc-desc {
+  font-size: 12px;
+  color: rgba(128, 128, 128, 0.9);
+  line-height: 1.4;
+}
+.compliance-page .framework-doc-role {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(128, 128, 128, 0.8);
+  background: rgba(128, 128, 128, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.compliance-page .framework-doc-status {
+  font-size: 12px;
+  margin-top: 8px;
+  color: rgba(128, 128, 128, 0.9);
+}
+.compliance-page .framework-doc-status em {
+  font-style: normal;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+}
+.compliance-page .framework-doc-status-missing {
+  color: #d97706;
+}
+.compliance-page .framework-doc-actions {
+  margin-top: 10px;
+}
+.compliance-page .framework-upload-btn {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 6px 12px;
+}
+.compliance-page .framework-upload-btn input[type='file'] {
+  display: none;
+}
+.compliance-page .framework-extras {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(128, 128, 128, 0.9);
+}
+.compliance-page .framework-extras summary {
+  cursor: pointer;
+  font-weight: 500;
+}
+.compliance-page .framework-extras-note {
+  margin: 8px 0;
+  font-size: 11px;
+  color: rgba(128, 128, 128, 0.75);
+  line-height: 1.4;
+}
+.compliance-page .framework-extras-list {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+.compliance-page .framework-extras-list li {
+  font-size: 11px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  margin-bottom: 2px;
+}
+.compliance-page .framework-extras-more {
+  font-style: italic;
+  font-family: inherit !important;
+  color: rgba(128, 128, 128, 0.7);
+}
+.compliance-page .framework-upload-message {
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.compliance-page .framework-upload-ok {
+  background: rgba(46, 160, 67, 0.12);
+  color: #2ea043;
+  border: 1px solid rgba(46, 160, 67, 0.3);
+}
+.compliance-page .framework-upload-err {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+.compliance-page .framework-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 8px;
+  margin: 0 0 20px;
+}
+.compliance-page .framework-banner-icon {
+  font-size: 20px;
+}
+.compliance-page .framework-banner-body {
+  flex: 1;
+}
+.compliance-page .framework-banner-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #d97706;
+}
+.compliance-page .framework-banner-text {
+  font-size: 12px;
+  color: rgba(128, 128, 128, 0.95);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+.compliance-page .framework-banner-cta {
+  flex-shrink: 0;
+  font-size: 12px;
+}
+.compliance-page .loading-inline {
+  padding: 20px;
+  text-align: center;
+  color: rgba(128, 128, 128, 0.8);
+  font-size: 13px;
+}
+@media (max-width: 640px) {
+  .compliance-page .framework-tab-intro {
+    flex-direction: column;
+  }
+  .compliance-page .framework-tab-intro .btn {
+    width: 100%;
+  }
+  .compliance-page .framework-category-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+.compliance-page .doc-history {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+}
+.compliance-page .doc-history li {
+  padding: 4px 0;
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.08);
+}
+.compliance-page .doc-history-stage {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  min-width: 140px;
+  opacity: 0.7;
+}
+.compliance-page .doc-history-time {
+  opacity: 0.45;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+}
+.compliance-page .doc-history-note {
+  opacity: 0.75;
+  flex: 1;
+}
+.compliance-page .doc-actions {
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ---------------------------------------------------------------------------
+   Responsive: tablet (≤900px) and phone (≤600px).
+   Most grids already use `repeat(auto-fit, minmax(...))` and adapt on
+   their own; these rules tame the fixed-width sidebar and the few
+   hard-coded column counts that remain. Tested intent:
+     - tablet: sidebar becomes a horizontal scroll-strip of tabs at the
+       top, all cards keep their shape, modals fit the viewport.
+     - phone: all grids collapse to a single column, modals take the
+       full viewport, kanban columns stack.
+   --------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .compliance-page .page-layout {
+    flex-direction: column;
+  }
+  .compliance-page .compliance-sidebar {
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+    border-radius: 0;
+  }
+  .compliance-page .compliance-sidebar .oc-sidebar-nav {
+    margin-top: 6px;
+    padding: 0 6px;
+  }
+  /* Sidebar ul turns into a horizontal scrolling tab bar. */
+  .compliance-page .compliance-sidebar .oc-list {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .compliance-page .compliance-sidebar .oc-sidebar-nav-item {
+    flex: 0 0 auto;
+    padding-bottom: 0;
+  }
+  .compliance-page .compliance-sidebar .oc-sidebar-nav-item button {
+    white-space: nowrap;
+  }
+  .compliance-page .page-body {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Forms and dashboards that hard-coded column counts. Auto-fit grids
+     (framework-grid, summary-card, legend-grid) already wrap. */
+  .compliance-page .cert-form-grid,
+  .compliance-page .doc-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .compliance-page .finding-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .compliance-page .score-breakdown {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Modals consume the viewport cleanly on tablets instead of centering
+     in a narrow strip. */
+  .compliance-page .edit-modal {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  .compliance-page .doc-draft-side {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    margin-left: 0;
+  }
+  .compliance-page .edit-overlay {
+    flex-direction: column;
+  }
+
+  /* Diff container side-by-side → stacked so each pane has usable width. */
+  .compliance-page .diff-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Phone: collapse the multi-column grids that still had >1 col at 900px. */
+  .compliance-page .finding-stat-grid,
+  .compliance-page .score-breakdown {
+    grid-template-columns: 1fr;
+  }
+  /* Kanban becomes a vertical stack instead of horizontal scroll on
+     phones — scrolling sideways with one thumb isn't fun. Each column
+     expands to full width so the cards inside read naturally. */
+  .compliance-page .doc-kanban {
+    flex-direction: column;
+    overflow-x: visible;
+  }
+  .compliance-page .doc-column {
+    flex: 0 0 auto;
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+  }
+  /* Page title bar stacks action buttons underneath. */
+  .compliance-page .page-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  /* Findings bulk-bar shrinks to a footer-style strip. */
+  .compliance-page .findings-bulk-bar {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    transform: none;
+    max-width: none;
+  }
+  .compliance-page .bulk-bar-enter-from,
+  .compliance-page .bulk-bar-leave-to {
+    transform: translateY(20px);
+  }
+}

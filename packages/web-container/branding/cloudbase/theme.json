@@ -1,0 +1,30 @@
+{
+  "common": {
+    "name": "Cloudbase",
+    "slogan": "Your company cloud foundation",
+    "logo": "/branding/cloudbase/cloudbase-logo.svg",
+    "logoMobile": "/branding/cloudbase/cloudbase-logo.svg"
+  },
+  "clients": {
+    "android": {},
+    "desktop": {},
+    "ios": {},
+    "web": {
+      "defaults": {
+        "logo": "/branding/cloudbase/cloudbase-logo.svg",
+        "logoMobile": "/branding/cloudbase/cloudbase-logo.svg",
+        "favicon": "/img/favicon.svg"
+      },
+      "themes": [
+        {
+          "isDark": false,
+          "label": "Light Theme"
+        },
+        {
+          "isDark": true,
+          "label": "Dark Theme"
+        }
+      ]
+    }
+  }
+}

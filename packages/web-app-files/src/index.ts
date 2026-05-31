@@ -7,6 +7,7 @@ import SharedViaLink from './views/shares/SharedViaLink.vue'
 import SpaceDriveResolver from './views/spaces/DriveResolver.vue'
 import SpaceProjects from './views/spaces/Projects.vue'
 import TrashOverview from './views/trash/Overview.vue'
+import OrganizerPage from './views/tools/OrganizerPage.vue'
 import translations from '../l10n/translations.json'
 import {
   ApplicationInformation,
@@ -108,6 +109,14 @@ export const navItems: ClassicApplicationScript['navItems'] = ({ $ability, $gett
       priority: 40
     },
     {
+      name: $gettext('Organizer'),
+      icon: 'folder-settings-line',
+      route: {
+        path: `/${appInfo.id}/organizer`
+      },
+      priority: 45
+    },
+    {
       name: $gettext('Deleted files'),
       icon: 'delete-bin-5',
       route: {
@@ -121,7 +130,7 @@ export const navItems: ClassicApplicationScript['navItems'] = ({ $ability, $gett
           !unref(isEmbedModeEnabled)
         )
       },
-      priority: 50
+      priority: 60
     }
   ]
 }
@@ -131,9 +140,8 @@ export default defineWebApplication({
     const { $gettext } = useGettext()
     appInfo.name = $gettext('Files')
 
-    return {
-      appInfo,
-      routes: buildRoutes({
+    const routes = [
+      ...buildRoutes({
         App,
         Favorites,
         FilesDrop,
@@ -151,6 +159,23 @@ export default defineWebApplication({
           Overview: TrashOverview
         }
       }),
+      {
+        path: '/organizer',
+        component: App,
+        children: [
+          {
+            path: '',
+            name: 'files-organizer',
+            component: OrganizerPage,
+            meta: { authContext: 'user', title: $gettext('File Organizer') }
+          }
+        ]
+      }
+    ]
+
+    return {
+      appInfo,
+      routes,
       navItems,
       translations,
       extensions: extensions(appInfo),

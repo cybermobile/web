@@ -104,7 +104,14 @@ const OptionsConfigSchema = z.object({
     })
     .optional(),
   userListRequiresFilter: z.boolean().optional(),
-  hideLogo: z.boolean().optional()
+  hideLogo: z.boolean().optional(),
+  aiTools: z
+    .object({
+      agentUrl: z.string().optional(),
+      rcloneUrl: z.string().optional(),
+      confluenceUrl: z.string().optional()
+    })
+    .optional()
 })
 
 export type OptionsConfig = z.infer<typeof OptionsConfigSchema>
