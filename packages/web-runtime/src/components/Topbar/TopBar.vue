@@ -8,12 +8,9 @@
       <sidebar-nav-mobile class="pt-1" />
       <router-link v-if="!hideLogo" :to="homeLink">
         <picture>
-          <source
-            :srcset="currentTheme.logoMobile || currentTheme.logo"
-            media="(max-width: 959px)"
-          />
+          <source :srcset="topbarLogoMobile" media="(max-width: 959px)" />
           <oc-image
-            :src="currentTheme.logo"
+            :src="topbarLogo"
             :alt="sidebarLogoAlt"
             class="oc-logo-image align-middle ml-1 max-h-[28px] select-none"
           />
@@ -89,6 +86,32 @@ const appMenuExtensions = computed(() => {
   return extensionRegistry.requestExtensions(appMenuExtensionPoint)
 })
 
+const cloudbaseLogo = '/branding/cloudbase/cloudbase-logo.svg'
+
+const isUpstreamOpenCloudTheme = computed(() => {
+  const theme = unref(currentTheme)
+  const logo = `${theme?.logo || ''} ${theme?.logoMobile || ''}`.toLowerCase()
+  const name = `${theme?.name || ''}`.toLowerCase()
+
+  return name === 'opencloud' || logo.includes('/themes/opencloud/')
+})
+
+const topbarLogo = computed(() => {
+  if (unref(isUpstreamOpenCloudTheme)) {
+    return cloudbaseLogo
+  }
+
+  return unref(currentTheme).logo
+})
+
+const topbarLogoMobile = computed(() => {
+  if (unref(isUpstreamOpenCloudTheme)) {
+    return cloudbaseLogo
+  }
+
+  return unref(currentTheme).logoMobile || unref(currentTheme).logo
+})
+
 const hideLogo = computed(() => unref(configOptions).hideLogo)
 
 const isNotificationBellEnabled = computed(() => {
@@ -117,7 +140,7 @@ const isSideBarToggleDisabled = computed(() => {
 })
 
 const sidebarLogoAlt = computed(() => {
-  return $gettext('Navigate to personal files page')
+  return $gettext('Navigate to Cloudbase files page')
 })
 
 const isFeedbackLinkEnabled = computed(() => {

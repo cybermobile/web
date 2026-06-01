@@ -377,30 +377,38 @@
             }}</span
           >
         </div>
-        <div v-if="corpusStats.sources.length" class="corpus-sources corpus-sources-list">
-          <div
-            v-for="s in showAllCorpusSources
-              ? corpusStats.sources
-              : corpusStats.sources.slice(0, 12)"
-            :key="s.source"
-            class="corpus-source"
-          >
-            <span class="corpus-source-name">{{ s.source }}</span>
-            <span class="corpus-source-meta"
-              >{{ s.chunks }} chunks<span v-if="s.framework"> · {{ s.framework }}</span></span
-            >
+        <div v-if="corpusDocuments.length" class="corpus-document-list">
+          <div class="corpus-document-list-head">
+            <span>Document</span>
+            <span>Framework</span>
+            <span>Chunks</span>
+            <span></span>
           </div>
-          <button
-            v-if="corpusStats.sources.length > 12"
-            class="btn-link corpus-show-all"
-            @click="showAllCorpusSources = !showAllCorpusSources"
+          <div
+            v-for="document in corpusDocuments"
+            :key="document.source"
+            class="corpus-document-row"
           >
-            {{
-              showAllCorpusSources
-                ? 'Show top 12 only'
-                : `Show all ${corpusStats.sources.length} sources`
-            }}
-          </button>
+            <div class="corpus-document-primary">
+              <a :href="corpusSourceHref(document.source)" class="corpus-document-link">
+                <oc-icon name="file-text" size="small" />
+                <span>{{ corpusSourceName(document.source) }}</span>
+              </a>
+              <div v-if="corpusSourceLocation(document.source)" class="corpus-document-location">
+                {{ corpusSourceLocation(document.source) }}
+              </div>
+            </div>
+            <div>
+              <span v-if="document.framework" class="meta-pill">{{ document.framework }}</span>
+              <span v-else class="form-help">Unspecified</span>
+            </div>
+            <div class="corpus-document-chunks">{{ document.chunks }}</div>
+            <div class="corpus-document-actions">
+              <a class="btn btn-secondary btn-sm" :href="corpusSourceHref(document.source)">
+                {{ corpusSourceActionLabel(document.source) }}
+              </a>
+            </div>
+          </div>
         </div>
         <div v-else class="corpus-empty">
           No documents ingested yet. Upload compliance documents and run ingestion to populate the
@@ -505,6 +513,11 @@ type FrameworkCategoryGroup<T> = {
   label: string
   items: T[]
 }
+type CorpusDocument = {
+  source: string
+  framework: string
+  chunks: number
+}
 
 const compliancePage = useCompliancePageContext()
 const activeTab = toRef(compliancePage, 'activeTab')
@@ -520,7 +533,6 @@ const analysisErrors = toRef(compliancePage, 'analysisErrors')
 const running = toRef(compliancePage, 'running')
 const reports = toRef(compliancePage, 'reports')
 const corpusStats = toRef(compliancePage, 'corpusStats')
-const showAllCorpusSources = toRef(compliancePage, 'showAllCorpusSources')
 const scanDialogOpen = toRef(compliancePage, 'scanDialogOpen')
 const scanPath = toRef(compliancePage, 'scanPath')
 const scanFramework = toRef(compliancePage, 'scanFramework')
@@ -535,6 +547,8 @@ const gapControlIds = compliancePage.gapControlIds
 const runGapAnalysis = compliancePage.runGapAnalysis
 const runScanIngest = compliancePage.runScanIngest
 const viewReport = compliancePage.viewReport
+const evidenceSearchLink = compliancePage.evidenceSearchLink
+const fileLinkFor = compliancePage.fileLinkFor
 
 const frameworkLibraryTab = ref<FrameworkLibraryTabId>('frameworks')
 const frameworkCategoryFilter = ref<FrameworkCategoryId>('all')
@@ -603,6 +617,12 @@ const missingRequiredDocumentCount = computed(() => {
     (count, framework) => count + framework.missing_required.length,
     0
   )
+})
+
+const corpusDocuments = computed<CorpusDocument[]>(() => {
+  return [...(corpusStats.value?.sources || [])].sort((a, b) => {
+    return corpusSourceName(a.source).localeCompare(corpusSourceName(b.source))
+  })
 })
 
 function countFrameworkCategories(
@@ -679,5 +699,63 @@ function getFrameworkCategory(
 
 function includesAny(value: string, terms: string[]): boolean {
   return terms.some((term) => value.includes(term))
+}
+
+function corpusSourceHref(source: string): string {
+  const trimmed = source.trim()
+
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed
+  }
+
+  if (trimmed.startsWith('/')) {
+    return fileLinkFor(trimmed)
+  }
+
+  return evidenceSearchLink(trimmed)
+}
+
+function corpusSourceActionLabel(source: string): string {
+  const trimmed = source.trim()
+
+  if (/^https?:\/\//i.test(trimmed)) {
+    return 'Open source'
+  }
+
+  if (trimmed.startsWith('/')) {
+    return 'Open in Files'
+  }
+
+  return 'Find in Files'
+}
+
+function corpusSourceName(source: string): string {
+  const trimmed = source.trim()
+  const normalized = trimmed.replace(/\\/g, '/')
+  const name = normalized.split('/').filter(Boolean).pop()
+
+  return name || trimmed
+}
+
+function corpusSourceLocation(source: string): string {
+  const trimmed = source.trim()
+  const normalized = trimmed.replace(/\\/g, '/')
+
+  if (/^https?:\/\//i.test(trimmed)) {
+    try {
+      return new URL(trimmed).host
+    } catch {
+      return ''
+    }
+  }
+
+  const parts = normalized.split('/').filter(Boolean)
+  if (parts.length <= 1) {
+    return ''
+  }
+
+  return normalized.startsWith('/')
+    ? `/${parts.slice(0, -1).join('/')}`
+    : parts.slice(0, -1).join('/')
 }
 </script>

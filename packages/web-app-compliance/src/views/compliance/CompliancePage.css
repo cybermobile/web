@@ -494,6 +494,82 @@
   opacity: 0.5;
   padding: 4px 0;
 }
+.compliance-page .corpus-document-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid var(--oc-role-outline-variant, rgba(128, 128, 128, 0.18));
+  border-radius: 8px;
+}
+.compliance-page .corpus-document-list-head,
+.compliance-page .corpus-document-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(120px, 180px) 88px minmax(112px, auto);
+  gap: 12px;
+  align-items: center;
+}
+.compliance-page .corpus-document-list-head {
+  padding: 8px 12px;
+  background: var(--oc-role-surface-container, rgba(128, 128, 128, 0.06));
+  color: var(--oc-role-on-surface-variant, inherit);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.compliance-page .corpus-document-row {
+  padding: 10px 12px;
+  border-top: 1px solid var(--oc-role-outline-variant, rgba(128, 128, 128, 0.14));
+  font-size: 12px;
+}
+.compliance-page .corpus-document-row:hover {
+  background: var(--oc-role-surface-container-low, rgba(128, 128, 128, 0.04));
+}
+.compliance-page .corpus-document-primary {
+  min-width: 0;
+}
+.compliance-page .corpus-document-link {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 8px;
+  color: var(--oc-role-primary, #0d856f);
+  font-weight: 700;
+  text-decoration: none;
+}
+.compliance-page .corpus-document-link span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.compliance-page .corpus-document-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.compliance-page .corpus-document-location {
+  overflow: hidden;
+  margin: 3px 0 0 28px;
+  color: var(--oc-role-on-surface-variant, inherit);
+  font-size: 11px;
+  opacity: 0.62;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.compliance-page .corpus-document-chunks {
+  color: var(--oc-role-on-surface-variant, inherit);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+.compliance-page .corpus-document-actions {
+  text-align: right;
+}
+.compliance-page .corpus-document-actions .btn {
+  display: inline-flex;
+  justify-content: center;
+  min-width: 104px;
+  text-decoration: none;
+}
 
 /* C1: run history */
 .compliance-page .run-history-section {
@@ -2689,6 +2765,19 @@
   font-size: 13px;
 }
 @media (max-width: 640px) {
+  .compliance-page .corpus-document-list-head {
+    display: none;
+  }
+  .compliance-page .corpus-document-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .compliance-page .corpus-document-actions {
+    text-align: left;
+  }
+  .compliance-page .corpus-document-actions .btn {
+    width: 100%;
+  }
   .compliance-page .framework-tab-intro {
     flex-direction: column;
   }

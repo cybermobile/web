@@ -17,6 +17,25 @@ vi.mock('@opencloud-eu/web-pkg', async (importOriginal) => ({
 }))
 
 describe('Top Bar component', () => {
+  it('uses the Cloudbase logo for the upstream OpenCloud default theme', () => {
+    const { wrapper } = getWrapper({
+      themeState: {
+        currentTheme: {
+          name: 'OpenCloud',
+          logo: 'themes/opencloud/assets/logo.svg',
+          logoMobile: 'themes/opencloud/assets/logo.svg',
+          label: 'Light Theme',
+          isDark: false,
+          designTokens: {}
+        }
+      }
+    })
+
+    expect(wrapper.find('oc-image-stub').attributes('src')).toBe(
+      '/branding/cloudbase/cloudbase-logo.svg'
+    )
+  })
+
   it('Displays applications menu', () => {
     const { wrapper } = getWrapper()
     expect(wrapper.find('applications-menu-stub').exists()).toBeTruthy()
@@ -76,10 +95,12 @@ describe('Top Bar component', () => {
 
 const getWrapper = ({
   capabilities = {},
-  userContextReady = true
+  userContextReady = true,
+  themeState = {}
 }: {
   capabilities?: Partial<Capabilities['capabilities']>
   userContextReady?: boolean
+  themeState?: Record<string, unknown>
 } = {}) => {
   const mocks = { ...defaultComponentMocks() }
 
@@ -87,7 +108,8 @@ const getWrapper = ({
     piniaOptions: {
       authState: { userContextReady },
       capabilityState: { capabilities },
-      configState: { options: { disableFeedbackLink: false } }
+      configState: { options: { disableFeedbackLink: false } },
+      themeState
     }
   })
 
@@ -105,7 +127,10 @@ const getWrapper = ({
       },
       global: {
         plugins,
-        stubs: { 'router-link': true, notifications: true },
+        stubs: {
+          'router-link': { template: '<a><slot /></a>' },
+          notifications: true
+        },
         mocks,
         provide: mocks
       }
