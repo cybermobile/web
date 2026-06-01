@@ -40,9 +40,36 @@ export type ComplianceContext = {
     control_id?: string
     control_title?: string
     status?: string
+    lifecycle_status?: string
+    framework?: string
+    control_section?: string
     severity?: string
     top_score?: number
+    reasoning?: string
+    evidence?: {
+      source?: string
+      clause?: string
+      section_title?: string
+      score?: number
+      text?: string
+      node_id?: string
+    }[]
   } | null
+}
+
+export type ChatModePreference = 'auto' | 'chat' | 'agent' | 'compliance'
+
+export type OpenChatWithPromptOptions = {
+  autoSubmit?: boolean
+  complianceContext?: ComplianceContext
+  mode?: ChatModePreference
+}
+
+export type OpenChatEventDetail = {
+  prompt: string
+  autoSubmit: boolean
+  complianceContext?: ComplianceContext
+  mode?: ChatModePreference
 }
 
 export const complianceContext = ref<ComplianceContext>({})
@@ -56,6 +83,22 @@ export function setComplianceContext(ctx: ComplianceContext): void {
 // pre-seeded prompt; the widget opens itself and submits.
 export const OPEN_CHAT_EVENT = 'oc:open-chat-with-prompt'
 
-export function openChatWithPrompt(prompt: string, autoSubmit = true): void {
-  window.dispatchEvent(new CustomEvent(OPEN_CHAT_EVENT, { detail: { prompt, autoSubmit } }))
+export function openChatWithPrompt(
+  prompt: string,
+  autoSubmitOrOptions: boolean | OpenChatWithPromptOptions = true
+): void {
+  const options =
+    typeof autoSubmitOrOptions === 'boolean'
+      ? { autoSubmit: autoSubmitOrOptions }
+      : autoSubmitOrOptions
+  window.dispatchEvent(
+    new CustomEvent<OpenChatEventDetail>(OPEN_CHAT_EVENT, {
+      detail: {
+        prompt,
+        autoSubmit: options.autoSubmit !== false,
+        complianceContext: options.complianceContext,
+        mode: options.mode
+      }
+    })
+  )
 }

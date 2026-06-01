@@ -14,7 +14,8 @@ import {
   setComplianceContext,
   openChatWithPrompt,
   getAiToolsServiceUrl,
-  getOpenCloudAccessToken
+  getOpenCloudAccessToken,
+  type ComplianceContext
 } from '@opencloud-eu/web-pkg'
 import {
   compliancePathForTab,
@@ -60,8 +61,15 @@ export function createCompliancePage() {
   // bridge. The global chat widget listens for the event, opens itself,
   // and submits. Keeps CompliancePage decoupled from the chat component.
   function askAboutFinding(f: StoredFinding) {
+    activeChatFinding.value = complianceContextFinding(f)
+    const context = buildChatContext(activeReport.value, activeChatFinding.value)
+    setComplianceContext(context)
     openChatWithPrompt(
-      `Explain finding ${f.control_id} (${f.control_title}). Its current coverage is "${f.coverage}" with severity "${f.severity}". What evidence would close this gap?`
+      `Explain finding ${f.control_id} (${f.control_title}). Its current coverage is "${f.coverage}" with severity "${f.severity}". What evidence would close this gap?`,
+      {
+        mode: 'compliance',
+        complianceContext: context
+      }
     )
   }
   function askAboutAnomaly(a: Anomaly) {
@@ -326,6 +334,7 @@ export function createCompliancePage() {
     updated_at: string
   }
   const persistedFindings = ref<StoredFinding[]>([])
+  const activeChatFinding = ref<ComplianceContext['finding']>(null)
   const findingsCount = ref<{ open: number; in_progress: number; closed: number }>({
     open: 0,
     in_progress: 0,
@@ -336,6 +345,70 @@ export function createCompliancePage() {
     status: '',
     severity: ''
   })
+
+  function complianceContextFinding(f: StoredFinding): NonNullable<ComplianceContext['finding']> {
+    return {
+      control_id: f.control_id,
+      control_title: f.control_title,
+      control_section: f.control_section,
+      framework: f.framework,
+      status: f.coverage,
+      lifecycle_status: f.status,
+      severity: f.severity,
+      top_score: f.top_score,
+      reasoning: f.reasoning,
+      evidence: f.evidence.slice(0, 5).map((ev) => ({
+        source: ev.source,
+        clause: ev.clause,
+        section_title: ev.section_title,
+        score: ev.score,
+        text: ev.text,
+        node_id: ev.node_id
+      }))
+    }
+  }
+
+  function buildChatContext(
+    report: Report | null,
+    activeFinding: ComplianceContext['finding']
+  ): ComplianceContext {
+    const findingsForContext = report
+      ? report.findings
+          .filter((f) => f.status !== 'covered')
+          .sort((a, b) => {
+            const sev = SEVERITY_ORDER[a.severity] - SEVERITY_ORDER[b.severity]
+            if (sev !== 0) return sev
+            const cov = COVERAGE_ORDER[a.status] - COVERAGE_ORDER[b.status]
+            if (cov !== 0) return cov
+            return a.control_id.localeCompare(b.control_id, undefined, { numeric: true })
+          })
+          .slice(0, 25)
+          .map((f) => ({
+            control_id: f.control_id,
+            control_title: f.control_title,
+            status: f.status,
+            severity: f.severity,
+            top_score: f.top_score,
+            top_evidence: f.evidence[0]?.source || '',
+            next_action: nextActionFor(f)
+          }))
+      : null
+
+    return {
+      framework: report?.framework || activeFinding?.framework || null,
+      report_summary: report
+        ? {
+            total_controls: report.total_controls,
+            covered: report.covered,
+            partial: report.partial,
+            missing: report.missing,
+            coverage_percent: report.coverage_percent
+          }
+        : null,
+      report_findings: findingsForContext,
+      finding: activeFinding
+    }
+  }
   // Client-side text search — framework/status/severity narrow the server
   // query; the search box filters what came back. Case-insensitive match
   // across control_id, control_title, reasoning, and notes so the user can
@@ -683,50 +756,10 @@ export function createCompliancePage() {
   // without the user re-stating. Watcher runs whenever the active report
   // or finding changes — low cost, fires maybe once per navigation.
   const chatContext = computed(() => {
-    const report = activeReport.value
-    const findingsForContext = report
-      ? report.findings
-          .filter((f) => f.status !== 'covered')
-          .sort((a, b) => {
-            const sev = SEVERITY_ORDER[a.severity] - SEVERITY_ORDER[b.severity]
-            if (sev !== 0) return sev
-            const cov = COVERAGE_ORDER[a.status] - COVERAGE_ORDER[b.status]
-            if (cov !== 0) return cov
-            return a.control_id.localeCompare(b.control_id, undefined, { numeric: true })
-          })
-          .slice(0, 25)
-          .map((f) => ({
-            control_id: f.control_id,
-            control_title: f.control_title,
-            status: f.status,
-            severity: f.severity,
-            top_score: f.top_score,
-            top_evidence: f.evidence[0]?.source || '',
-            next_action: nextActionFor(f)
-          }))
-      : null
-    return {
-      framework: report?.framework || null,
-      report_summary: report
-        ? {
-            total_controls: report.total_controls,
-            covered: report.covered,
-            partial: report.partial,
-            missing: report.missing,
-            coverage_percent: report.coverage_percent
-          }
-        : null,
-      report_findings: findingsForContext,
-      finding: editingFinding.value
-        ? {
-            control_id: editingFinding.value.control_id,
-            control_title: editingFinding.value.control_title,
-            status: editingFinding.value.status,
-            severity: editingFinding.value.severity,
-            top_score: editingFinding.value.top_score
-          }
-        : null
-    }
+    const selectedFinding = editingFinding.value
+      ? complianceContextFinding(editingFinding.value)
+      : activeChatFinding.value
+    return buildChatContext(activeReport.value, selectedFinding)
   })
   watch(chatContext, (ctx) => setComplianceContext(ctx), { immediate: true, deep: true })
 

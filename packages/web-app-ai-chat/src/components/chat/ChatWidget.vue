@@ -93,6 +93,8 @@
             :pending-prompt="pendingPrompt"
             :pending-auto-submit="pendingAutoSubmit"
             :pending-key="pendingKey"
+            :pending-compliance-context="pendingComplianceContext"
+            :pending-mode="pendingMode"
             @open-request="isOpen = true"
           />
         </div>
@@ -104,7 +106,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import ChatPanelSdk from './ChatPanelSdk.vue'
-import { OPEN_CHAT_EVENT } from '@opencloud-eu/web-pkg'
+import { OPEN_CHAT_EVENT, type OpenChatEventDetail } from '@opencloud-eu/web-pkg'
 
 // Expanded mode adds 45% to the drawer width (420 → 610 px) for cases
 // where the user's reading a markdown table or long code block. Saved
@@ -131,15 +133,19 @@ const isOpen = ref(false)
 // doesn't re-fire the same prompt.
 const pendingPrompt = ref<string>('')
 const pendingAutoSubmit = ref<boolean>(true)
+const pendingComplianceContext = ref<OpenChatEventDetail['complianceContext']>()
+const pendingMode = ref<OpenChatEventDetail['mode']>()
 let pendingSeq = 0
 const pendingKey = ref<number>(0) // bumped per event so identical prompts still trigger
 
 function onOpenChatEvent(ev: Event) {
-  const detail = (ev as CustomEvent<{ prompt?: string; autoSubmit?: boolean }>).detail
+  const detail = (ev as CustomEvent<OpenChatEventDetail>).detail
   if (!detail) return
   isOpen.value = true
   pendingPrompt.value = detail.prompt || ''
   pendingAutoSubmit.value = detail.autoSubmit !== false
+  pendingComplianceContext.value = detail.complianceContext
+  pendingMode.value = detail.mode
   pendingKey.value = ++pendingSeq
 }
 

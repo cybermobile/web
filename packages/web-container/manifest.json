@@ -3,7 +3,7 @@
   "short_name": "Cloudbase",
   "icons": [
     {
-      "src": "img/opencloud-icon.png",
+      "src": "img/cloudbase-icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }

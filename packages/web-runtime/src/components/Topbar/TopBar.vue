@@ -87,13 +87,14 @@ const appMenuExtensions = computed(() => {
 })
 
 const cloudbaseLogo = '/branding/cloudbase/cloudbase-logo.svg'
+const cloudbaseIcon = '/branding/cloudbase/cloudbase-icon.svg'
 
 const isUpstreamOpenCloudTheme = computed(() => {
   const theme = unref(currentTheme)
   const logo = `${theme?.logo || ''} ${theme?.logoMobile || ''}`.toLowerCase()
   const name = `${theme?.name || ''}`.toLowerCase()
 
-  return name === 'opencloud' || logo.includes('/themes/opencloud/')
+  return name === 'opencloud' || logo.includes('themes/opencloud/')
 })
 
 const topbarLogo = computed(() => {
@@ -106,7 +107,7 @@ const topbarLogo = computed(() => {
 
 const topbarLogoMobile = computed(() => {
   if (unref(isUpstreamOpenCloudTheme)) {
-    return cloudbaseLogo
+    return cloudbaseIcon
   }
 
   return unref(currentTheme).logoMobile || unref(currentTheme).logo

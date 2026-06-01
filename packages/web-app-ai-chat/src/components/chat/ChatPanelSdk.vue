@@ -268,9 +268,12 @@ import { Chat } from '@ai-sdk/vue'
 import { DefaultChatTransport, type UIMessage, type UIMessagePart } from 'ai'
 import StreamingText from './StreamingText.vue'
 import {
+  setComplianceContext,
   complianceContext,
   getAiToolsServiceUrl,
-  getOpenCloudAccessToken
+  getOpenCloudAccessToken,
+  type ChatModePreference,
+  type ComplianceContext
 } from '@opencloud-eu/web-pkg'
 
 const AI_BACKEND_URL = getAiToolsServiceUrl('agent')
@@ -305,6 +308,8 @@ const props = defineProps<{
   pendingPrompt?: string
   pendingAutoSubmit?: boolean
   pendingKey?: number
+  pendingComplianceContext?: ComplianceContext
+  pendingMode?: ChatModePreference
 }>()
 
 const emit = defineEmits<{
@@ -691,6 +696,12 @@ watch(
     const p = props.pendingPrompt || ''
     if (!p) return
     const autoSubmit = props.pendingAutoSubmit !== false
+    if (props.pendingComplianceContext) {
+      setComplianceContext(props.pendingComplianceContext)
+    }
+    if (props.pendingMode && props.pendingMode !== mode.value) {
+      mode.value = props.pendingMode
+    }
     nextTick(() => (autoSubmit ? submitRaw(p) : (input.value = p)))
   },
   { immediate: true }

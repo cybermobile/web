@@ -1,6 +1,14 @@
+asset:
+  login-background-url: /branding/cloudbase/cloudbase-login-background.svg
+
+idp:
+  identifierdefaultbannerlogo: branding/cloudbase/cloudbase-logo.svg
+  default_sign_in_page_text: Cloudbase
+  default_logo_target_uri: https://cloud.opencloud.test
+
 clients:
   - id: web
-    name: OpenCloud web app
+    name: Cloudbase web app
     application_type: web
     insecure: true
     trusted: true
@@ -24,7 +32,7 @@ clients:
       - https://oc.opencloud.test:10201
 
   - id: OpenCloudDesktop
-    name: OpenCloud desktop client
+    name: Cloudbase desktop client
     application_type: 'native'
     trusted: true
     redirect_uris:

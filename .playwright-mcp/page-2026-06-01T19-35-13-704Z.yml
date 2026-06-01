@@ -1,0 +1,34 @@
+- generic [ref=e3]:
+  - generic [ref=e4]: Navigated to OIDC callback
+  - button "Skip to main" [ref=e5]
+  - banner "Top bar" [ref=e8]:
+    - link "Navigate to Cloudbase files page" [ref=e10] [cursor=pointer]:
+      - /url: /
+      - img "Navigate to Cloudbase files page" [ref=e12]
+    - search [ref=e15]:
+      - generic [ref=e16]:
+        - textbox "Enter search term" [ref=e17]
+        - button "All files" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]: All files
+          - img [ref=e24]
+        - button "Search" [ref=e26] [cursor=pointer]:
+          - img [ref=e28]
+      - button "Search" [disabled] [ref=e31]
+    - generic [ref=e32]:
+      - button "AI Chat" [ref=e34] [cursor=pointer]:
+        - img [ref=e35]
+      - generic [ref=e37]:
+        - link "Share improvement ideas" [ref=e38] [cursor=pointer]:
+          - /url: https://opencloud.eu/feedback-web
+          - img [ref=e40]
+        - paragraph [ref=e42]: Share improvement ideas
+      - button "Notifications" [ref=e44] [cursor=pointer]:
+        - img [ref=e46]
+      - button "Open sidebar to view details" [ref=e48] [cursor=pointer]:
+        - img [ref=e50]
+      - navigation "Main navigation" [ref=e54]:
+        - button "Application Switcher" [ref=e55] [cursor=pointer]:
+          - img [ref=e57]
+      - navigation "Account menu" [ref=e59]:
+        - button "My Account" [ref=e60] [cursor=pointer]:
+          - generic [ref=e62]: A

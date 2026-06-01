@@ -36,6 +36,24 @@ describe('Top Bar component', () => {
     )
   })
 
+  it('uses the Cloudbase logo for relative upstream theme logo paths', () => {
+    const { wrapper } = getWrapper({
+      themeState: {
+        currentTheme: {
+          logo: 'themes/opencloud/assets/logo.svg',
+          logoMobile: 'themes/opencloud/assets/logo-mobile.svg',
+          label: 'Light Theme',
+          isDark: false,
+          designTokens: {}
+        }
+      }
+    })
+
+    expect(wrapper.find('oc-image-stub').attributes('src')).toBe(
+      '/branding/cloudbase/cloudbase-logo.svg'
+    )
+  })
+
   it('Displays applications menu', () => {
     const { wrapper } = getWrapper()
     expect(wrapper.find('applications-menu-stub').exists()).toBeTruthy()
